@@ -66,7 +66,7 @@ Don't forget to free the memory:
     json_object_free(obj); 
     
     
-Fancy using C++?
+## Fancy using C++?
 
     #include "json_cpp.hpp"
 
