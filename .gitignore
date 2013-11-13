@@ -1,0 +1,13 @@
+/.dep.inc
+/nbproject/
+/dist
+/build
+/tests
+/Makefile.bak
+/cpp_test.cpp
+*.o
+/json.dll
+/json.so
+/unit_test
+/unit_test.exe
+
