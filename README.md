@@ -1,6 +1,6 @@
-# Jdottir JSON
+# Jsondottir
 
-Jdottir JSON is a lightweight and fast JSON parser for C (C99), with a nice C++ interface.
+Jsondottir is a lightweight and fast JSON parser for C (C99), with a nice C++ interface.
 It doesn't depend on any other libraries. It can be compiled as a shared library,
 or included directly to your project as source code.
 
@@ -91,4 +91,9 @@ Don't forget to free the memory:
     
 ## Need more information?    
     
-For more information, please visit the repository wiki (under construction, unfortunately).
+For more information, please visit the repository wiki (under construction, unfortunately - see the header and source files).
+
+## The name
+
+The name is a joke based on Icelandic names, meaning something like "the dauther of the son of J" :)
+However, for simplicity, all functions and data structures are prefixed only with `json_`.
