@@ -88,12 +88,18 @@ Don't forget to free the memory:
     }
     
     json_object_free(obj);
-    
-## Need more information?    
-    
-For more information, please visit the repository wiki (under construction, unfortunately - see the header and source files).
+
+
+## Encoding
+
+Only UTF-8 is supported and all string data are stored in regular `char[]` arrays. Unicode sequences (`\uxxxx`)
+are converted to UTF-8, however, surrogate pairs are not supported (yet).
 
 ## The name
 
 The name is a joke based on Icelandic names, meaning something like "the dauther of the son of J" :)
 However, for simplicity, all functions and data structures are prefixed only with `json_`.
+
+## Need more information?    
+    
+For more information, please visit the repository wiki (under construction, unfortunately - see the header and source files).
