@@ -10,85 +10,97 @@ It is published under the BSD (new) license.
 
 Include the required header file:
 
-    #include "json.h"
+```c
+#include "json.h"
+```
     
 Parse a JSON string:
     
-    json_object * obj = json_parse_string("{\"hello\": \"world\"}", NULL);
+```c
+json_object * obj = json_parse_string("{\"hello\": \"world\"}", NULL);
+```
     
 Or parse a JSON file:
 
-    json_object * obj = json_parse_file("file.json", NULL);
+```c
+json_object * obj = json_parse_file("file.json", NULL);
+```    
     
 Handle errors:
 
-    json_error error;
-    json_object * obj = json_parse_file("file.json", &error);
-    
-    if (obj == NULL) { // parse error
-        printf("JSON error: %s\n", json_error_message[error.code]);
-        printf("at %i:%i\n", error.line, error.pos);
-    }
+```c
+json_error error;
+json_object * obj = json_parse_file("file.json", &error);
+
+if (obj == NULL) { // parse error
+    printf("JSON error: %s\n", json_error_message[error.code]);
+    printf("at %i:%i\n", error.line, error.pos);
+}
+```
     
 Retrieve the data:
 
-    json_object * datasheet = json_parse_string("{\"persons\":[{\"name\": \"Martin\", \"age\": 23, \"married\": false}, {\"name:\": \"John\", \"age\": 32, \"married\": true}]}", NULL);
-    
-    if (!datasheet || datasheet->type != JSON_OBJECT_MAP) return 0;
-    json_object * persons = json_map_get(datasheet, "persons");
-    
-    if (!persons || persons->type != JSON_OBJECT_ARRAY) return 0;
-    json_object * firstGuy = json_array_get(persons, 0);
-    
-    if (!firstGuy || firstGuy->type != JSON_OBJECT_MAP) return 0;
-    
-    json_object * name = json_map_get(firstGuy, "name");
-    json_object * age = json_map_get(firstGuy, "age");
-    json_object * married = json_map_get(firstGuy, "married");
-    
-    if (name && name->type == JSON_OBJECT_STRING) {
-        printf("Name: %s\n", json_string_value(name));
-    }
-    if (age && age->type == JSON_OBJECT_INT) {
-        printf("Age: %s\n", json_int_value(age));
-    }
-    if (married && married->type == JSON_OBJECT_BOOL) {
-        printf("Married: %s\n", json_bool_value(married) ? "yes" : "no");
-    }
-    
-    json_object_free(datasheet);
+```c
+json_object * datasheet = json_parse_string("{\"persons\":[{\"name\": \"Martin\", \"age\": 23, \"married\": false}, {\"name:\": \"John\", \"age\": 32, \"married\": true}]}", NULL);
+
+if (!datasheet || datasheet->type != JSON_OBJECT_MAP) return 0;
+json_object * persons = json_map_get(datasheet, "persons");
+
+if (!persons || persons->type != JSON_OBJECT_ARRAY) return 0;
+json_object * firstGuy = json_array_get(persons, 0);
+
+if (!firstGuy || firstGuy->type != JSON_OBJECT_MAP) return 0;
+
+json_object * name = json_map_get(firstGuy, "name");
+json_object * age = json_map_get(firstGuy, "age");
+json_object * married = json_map_get(firstGuy, "married");
+
+if (name && name->type == JSON_OBJECT_STRING) {
+    printf("Name: %s\n", json_string_value(name));
+}
+if (age && age->type == JSON_OBJECT_INT) {
+    printf("Age: %s\n", json_int_value(age));
+}
+if (married && married->type == JSON_OBJECT_BOOL) {
+    printf("Married: %s\n", json_bool_value(married) ? "yes" : "no");
+}
+
+json_object_free(datasheet);
+```
     
 Don't forget to free the memory:
 
-    json_object * obj = json_parse_file("file.json", NULL);
-    // ...
-    
-    json_object_free(obj); 
-    
+```c
+json_object * obj = json_parse_file("file.json", NULL);
+// ...
+
+json_object_free(obj); 
+```    
     
 ## Fancy using C++?
 
-    #include "json_cpp.hpp"
+```c++
+#include "json_cpp.hpp"
 
-    json_object * obj = json_parse_file("datasheet.json", NULL);
-    if (obj == NULL) return 0;
-    
-    try {
-        json_cpp datasheet = obj;
-        json_cpp firstGuy = datasheet["persons"][0];
-        std::cout << "Name: " << (char*)firstGuy["name"] << std::endl;
-        std::cout << "Age: " << (int)firstGuy["age"] << std::endl;
-        std::cout << "Married: " << ((bool)firstGuy["married"] ? "yes" : "no") << std::endl;
-    }
-    catch (json_undefined e) {
-        // array or map value not found
-    }
-    catch (json_type_error e) {
-        // invalid type cast
-    }
-    
-    json_object_free(obj);
+json_object * obj = json_parse_file("datasheet.json", NULL);
+if (obj == NULL) return 0;
 
+try {
+    json_cpp datasheet = obj;
+    json_cpp firstGuy = datasheet["persons"][0];
+    std::cout << "Name: " << (char*)firstGuy["name"] << std::endl;
+    std::cout << "Age: " << (int)firstGuy["age"] << std::endl;
+    std::cout << "Married: " << ((bool)firstGuy["married"] ? "yes" : "no") << std::endl;
+}
+catch (json_undefined e) {
+    // array or map value not found
+}
+catch (json_type_error e) {
+    // invalid type cast
+}
+
+json_object_free(obj);
+```
 
 ## Encoding
 
